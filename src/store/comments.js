@@ -46,6 +46,7 @@ export const useCommentsStore = defineStore('commentsStore', {
     addComment(comment) {
       const newNotesArr = [comment, ...this.comments];
       this.comments = newNotesArr;
+      console.log(comment);
     },
   },
 });
