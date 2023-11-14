@@ -6,34 +6,21 @@
       </div>
       <form action="">
         <li class="cities-list-item cities-list-create-item">
-          <input
-            required
-            v-model="title"
-            type="text"
-            placeholder="new job title"
-            class="cities-list-item-input"
-          />
-          <button class="cities-list-create-button">Add</button>
+          <input required v-model="title" type="text" placeholder="new job title" class="cities-list-item-input" />
+          <button type="button" class="cities-list-create-button">Add</button>
         </li>
         <li class="cities-list-item cities-list-create-item">
-          <input
-            required
-            v-model="text"
-            type="text"
-            placeholder="new job text"
-            class="cities-list-item-input"
-          />
-          <button class="cities-list-create-button">Add</button>
+          <input required v-model="text" type="text" placeholder="new job text" class="cities-list-item-input" />
+          <button type="button" class="cities-list-create-button">Add</button>
         </li>
-        <li class="cities-list-item cities-list-create-item">
-          <input
-            v-model="tags"
-            type="text"
-            placeholder="new categotu tag"
-            class="cities-list-item-input"
-          />
-          <button class="cities-list-create-button">Add</button>
-        </li>
+        <div>
+          <li class="cities-list-item cities-list-create-item">
+            <input v-model="tagText" type="text" placeholder="new category tag" class="cities-list-item-input" />
+            <button type="button" @click="addTag" class="cities-list-create-button">Add</button>
+          </li>
+          <span v-for="(tag, index) in tags.tags" :key="index">{{ tag }}</span>
+        </div>
+
       </form>
     </div>
   </section>
@@ -45,8 +32,14 @@ import { useCommentsStore } from '@/store/comments';
 const commentsStore = useCommentsStore();
 const title = ref('');
 const text = ref('');
-const tags = reactive([]);
-const date = ref('');
+const tagText = ref('')
+const tags = reactive({ tags: [] });
+
+const addTag = () => {
+  tags.tags.push(tagText.value);
+  tagText.value = '';
+}
+
 </script>
 <style>
 .tab {
@@ -70,6 +63,10 @@ const date = ref('');
 
 .tab-form {
   padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
 }
 
 .cities-list-create-button {
